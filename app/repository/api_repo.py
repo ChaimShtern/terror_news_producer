@@ -1,12 +1,16 @@
 import os
 import requests
 import time
+from dotenv import load_dotenv
+import json
+
+load_dotenv(verbose=True)
 
 # מפתח API
-API_KEY = "ceedbd7a-61df-41fd-a695-fb512b2a5240"  # החלף במפתח האמיתי שלך
+API_KEY = os.environ['NEWS_API_KEY']
 
 # כתובת ה-API
-url = "https://eventregistry.org/api/v1/article/getArticles"
+url = os.environ['NEWS_URL']
 
 # משתנה להגדרת מגבלת הבקשות
 LIMIT = 1  # מספר הבקשות המרבי (ניתן לשנות)
@@ -34,13 +38,12 @@ def fetch_articles():
 
         if response.status_code == 200:
             data = response.json()
-            print(f"Page {page} Data:", data)  # הדפסת תוצאות
+            return data['articles']['results']
         else:
             print(f"Error on page {page}: {response.status_code}, {response.text}")
             break
-
+            # המתנה של 2 דקות
+    time.sleep(120)
         # דילוג לעמוד הבא
-        page += 1
+    page += 1
 
-        # המתנה של 2 דקות
-        time.sleep(120)
