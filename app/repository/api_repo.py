@@ -17,8 +17,7 @@ LIMIT = 1  # מספר הבקשות המרבי (ניתן לשנות)
 
 
 # פונקציה לשליחת בקשות
-def fetch_articles():
-    page = 1
+def fetch_articles(page):
     for request_count in range(LIMIT):  # מגבלת בקשות
         body = {
             "action": "getArticles",
@@ -42,8 +41,4 @@ def fetch_articles():
         else:
             print(f"Error on page {page}: {response.status_code}, {response.text}")
             break
-            # המתנה של 2 דקות
-    time.sleep(120)
-        # דילוג לעמוד הבא
-    page += 1
 
