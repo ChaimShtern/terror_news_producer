@@ -51,8 +51,7 @@ def produce_elastic_news_messages(page):
     res = general_service(page)
     # Sanitize data before sending
     sanitized_fields = sanitize_data(res)
-
     produce(
         topic=elastic_topik,
-        value=sanitized_fields
+        value=[sanitized_fields]
     )
